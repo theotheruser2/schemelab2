@@ -26,8 +26,9 @@ reg   [7:0] mult1_a;
 reg   [7:0] mult1_b;
 wire [15:0] mult1_y;
 
-reg   mult1_rst = 0;
-wire mult1_busy;
+reg    mult1_rst = 0;
+reg  mult1_start = 0;
+wire  mult1_busy;
 
 reg [2:0] state = S0;
 
@@ -47,6 +48,7 @@ mult mult1(
     .rst_i(mult1_rst),
     .a_bi(mult1_a),
     .b_bi(mult1_b),
+    .start_i(mult1_start),
     .busy_o(mult1_busy),
     .y_bo(mult1_y)
 );
@@ -58,6 +60,7 @@ always @(posedge clk) begin
             if (in_ready) begin
                 y_ready <= 0;
                 mult1_a <= a_in;
+                mult1_rst <= 1;
                 sqrt1_x <= b_in;
                 sqrt1_x_ready <= 1;
                 state <= S1;
@@ -66,6 +69,7 @@ always @(posedge clk) begin
 
     S1:
         begin
+            mult1_rst <= 0;
             sqrt1_x_ready <= 0;
             state <= S2;
         end
@@ -74,14 +78,14 @@ always @(posedge clk) begin
         begin
             if (sqrt1_y_ready) begin
                 mult1_b <= sqrt1_y;
-                mult1_rst <= 1;
+                mult1_start <= 1;
                 state <= S3;
             end
         end
 
     S3:
         begin
-            mult1_rst <= 0;
+            mult1_start <= 0;
             state <= S4;
         end
 
