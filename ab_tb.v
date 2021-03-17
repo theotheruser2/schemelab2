@@ -54,7 +54,7 @@ initial begin
     #60
     
     
-    $display("Output: 0xh", out);
+    $display("Output: 0x%h", out);
     
 end
 
