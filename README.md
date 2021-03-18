@@ -38,7 +38,7 @@
 Код разработанной схемы
 ========================
 
-Репозиторий: https://github.com/theotheruser2/schemelab2\
+Репозиторий: https://github.com/theotheruser2/schemelab2  
 `multiplier.v` - блок умножения\
 `sqrt.v` - блок вычисления квадратного корня\
 `a_sqrtb.v` - схема для вычисления значения функции
