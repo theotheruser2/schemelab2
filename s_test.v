@@ -47,19 +47,22 @@ initial begin
 end
 
 
-always @(posedge clk) begin
-    for (i = 0; i < 256; i = i+25) begin
+initial begin
+    for (i = 0; i < 256; i = i + 25) begin
+        #20
+    
         a_in = i;
-        b_in = i+2;
+        b_in = i + 2;
         in_ready = 1;
         
-        #10
+        #20
         
         in_ready = 0;
         
-        #520
+        #580
         
          $display("Input: a) 0x%h, b) 0x%h Output: 0x%h", a_in, b_in, out);
     end
 end
 endmodule
+
